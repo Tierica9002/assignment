@@ -1,7 +1,10 @@
+import { logout } from "./auth-provider";
+
 const apiURL = process.env.API_URL;
 
 export enum ResponseCodes {
   UNAUTHORIZED = 401,
+  OK = 200,
 }
 
 interface ClientConfig {
@@ -14,12 +17,12 @@ interface ClientConfig {
 async function client(
   endpoint: string,
   { data, token, headers: customHeaders, ...customConfig }: ClientConfig = {}
-): Promise<Record<string, unknown>> {
+): Promise<Response> {
   const config: RequestInit = {
     method: data ? "POST" : "GET",
     body: data ? JSON.stringify(data) : undefined,
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json;charset=utf-8",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...customHeaders,
     },
@@ -28,8 +31,12 @@ async function client(
 
   return window
     .fetch(`${apiURL}/${endpoint}`, config)
-    .then(async (response) => {
-      return await response.json();
+    .then((response: Response) => {
+      if (token && response.status === ResponseCodes.UNAUTHORIZED) {
+        logout();
+        return Promise.reject({ message: "Your session has expired" });
+      }
+      return response;
     });
 }
 
