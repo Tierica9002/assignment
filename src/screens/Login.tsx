@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import FormInput from "../components/FormInput";
+import Button from "../components/Button";
 import { useAuth } from "../context/auth-context";
 enum errorMessages {
   INVALID_USERNAME = "Invalid username.",
@@ -27,7 +28,7 @@ const Login = (): JSX.Element => {
   const { login, token } = useAuth();
   const history = useHistory();
   const location = useLocation();
-  console.log(location);
+
   React.useEffect(() => {
     if (token) {
       history.push("/server-explorer");
@@ -35,7 +36,6 @@ const Login = (): JSX.Element => {
   }, [token]);
 
   React.useEffect(() => {
-    console.log(location.hash);
     if (location.hash === "#session_expired") {
       setSessionExpired(true);
     } else {
@@ -77,6 +77,7 @@ const Login = (): JSX.Element => {
     if (isFormValid()) {
       clearErrors();
       login(username, password).then((isLoggedIn) => {
+        console.log("inside login screen", isLoggedIn);
         if (!isLoggedIn) {
           setFormError(FormErrorMessages.INVALID_CREDENTIALS);
         } else {
@@ -113,12 +114,7 @@ const Login = (): JSX.Element => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <button
-              className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md"
-              type="submit"
-            >
-              Sign In
-            </button>
+            <Button type="submit">Sign In</Button>
             <span className="text-red-600">
               {formError}
               {sessionExpired &&

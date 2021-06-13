@@ -1,10 +1,11 @@
 import React from "react";
+import ExclamationCircle from "./icons/ExclamantionCircle";
 
 type FormInputProps = {
   value: string;
   label: string;
   errorMessage?: string | null;
-  onChange: (val: string) => void;
+  onChange?: (val: string) => void;
   type: string;
   placeholder?: string;
   id: string;
@@ -35,20 +36,7 @@ const FormInput = ({
       />
       {errorMessage && (
         <p className="absolute text-red-600 text-xs italic">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 mr-1 mb-1 inline-block"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
+          <ExclamationCircle />
           {errorMessage}
         </p>
       )}

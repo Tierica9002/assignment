@@ -34,9 +34,10 @@ const login = (username: string, password: string): Promise<AuthResponse> => {
   });
 };
 
-const logout = (): void => {
+const logout = (sessionExpired = false): void => {
   Cookie.remove(COOKIE_TOKEN_KEY);
-  window.location.replace("/login#session_expired");
+  const sessionExpiredStr = sessionExpired ? "#session_expired" : "";
+  window.location.replace(`/login${sessionExpiredStr}`);
 };
 
 const getToken = (): string => {

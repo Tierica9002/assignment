@@ -8,6 +8,7 @@ type AuthContext =
         username: string,
         password: string
       ) => Promise<authProvider.AuthResponse>;
+      logout: () => void;
     }
   | Record<string, never>;
 
@@ -20,21 +21,28 @@ interface AuthContextProviderProps {
 const AuthContextProvider = (props: AuthContextProviderProps): JSX.Element => {
   const [token, setToken] = React.useState(authProvider.getToken());
 
-  const login = (
-    username: string,
-    password: string
-  ): Promise<authProvider.AuthResponse> => {
-    return authProvider.login(username, password).then((resp) => {
-      if (resp.token) {
-        setToken(token);
+  const login = React.useCallback(
+    (
+      username: string,
+      password: string
+    ): Promise<authProvider.AuthResponse> => {
+      return authProvider.login(username, password).then((resp) => {
+        if (resp.token) {
+          setToken(resp.token);
+          return resp;
+        }
+
         return resp;
-      }
+      });
+    },
+    []
+  );
 
-      return resp;
-    });
-  };
+  const logout = React.useCallback(() => {
+    authProvider.logout();
+  }, []);
 
-  return <AuthContext.Provider value={{ login, token }} {...props} />;
+  return <AuthContext.Provider value={{ login, logout, token }} {...props} />;
 };
 
 const useAuth = (): AuthContext => {
