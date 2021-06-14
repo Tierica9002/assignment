@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run watch:css && webpack",
+    "build": "npm run watch:css && webpack --mode=production",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "start": "npm run watch:css && webpack serve",
@@ -17,7 +17,9 @@
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
+    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
     "@types/jest": "^26.0.23",
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
@@ -55,17 +57,7 @@
     "react-router-dom": "^5.2.0",
     "whatwg-fetch": "^3.6.2"
   },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    }
-  },
   "browserslist": [
-    "edge": "17",
-              "firefox": "60",
-              "chrome": "67",
-              "safari": "11.1",
-              "ie": "11"
+    "ie 11"
   ]
 }
