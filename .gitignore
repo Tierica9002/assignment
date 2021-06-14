@@ -6,3 +6,4 @@ node_modules
 build
 coverage
 .env
+src/assets/output.css

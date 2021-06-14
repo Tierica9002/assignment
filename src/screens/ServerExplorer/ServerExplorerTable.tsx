@@ -1,10 +1,10 @@
 import React from "react";
-import SortAscending from "../components/icons/SortAscending";
-import SortDescending from "../components/icons/SortDescending";
-import UpDownArrows from "../components/icons/UpDownArrows";
-import { SortDirections } from "../utils/sorting";
-import FormInput from "../components/FormInput";
-import { useServersTable, Columns, SortState, Server } from "../utils/hooks";
+import SortAscending from "../../components/icons/SortAscending";
+import SortDescending from "../../components/icons/SortDescending";
+import UpDownArrows from "../../components/icons/UpDownArrows";
+import { SortDirections } from "../../utils/sorting";
+import FormInput from "../../components/FormInput";
+import { useServersTable, Columns, SortState, Server } from "./useServersTable";
 
 interface ServerExplorerTableProps {
   servers: Server[];

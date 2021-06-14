@@ -33,7 +33,7 @@ async function client(
     .fetch(`${apiURL}/${endpoint}`, config)
     .then((response: Response) => {
       if (token && response.status === ResponseCodes.UNAUTHORIZED) {
-        logout();
+        logout(true);
         return Promise.reject({ message: "Your session has expired" });
       }
       return response;
