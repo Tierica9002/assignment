@@ -1,5 +1,9 @@
 # Server explorer
 
+## Requirements
+
+- Node v12.13.0 (LTS)
+
 ## Project instalation
 
 - create a copy of the `.env.examle` file and add the `API_URL` key
